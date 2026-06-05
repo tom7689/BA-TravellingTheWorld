@@ -79,6 +79,7 @@ Dabei werden die Ergebnisse aus `Scenes` und `Segmentation` zusammengeführt und
 
 Nach dem Import muss aus Neo4j ein `.dump`-File erstellt werden. Dieses Dump-File wird anschliessend für die Docker-Version der Anwendung verwendet.
 
+````markdown
 ### 5. Server
 
 Der Ordner `Server` enthält die lauffähige Webanwendung. Die Anwendung ist als Docker-Setup aufgebaut und besteht aus mehreren Containern:
@@ -87,7 +88,7 @@ Der Ordner `Server` enthält die lauffähige Webanwendung. Die Anwendung ist als
 * FastAPI-Backend
 * Neo4j-Datenbank
 
-Dadurch muss die Anwendung nicht manuell eingerichtet werden. Wenn alle benötigten Daten vorhanden sind, können Frontend, Backend und Datenbank gemeinsam über Docker gestartet werden.
+Dadurch müssen Frontend, Backend und Datenbank nicht einzeln eingerichtet werden. Wenn alle benötigten Daten vorhanden sind, kann die gesamte Anwendung über Docker gestartet werden.
 
 Vor dem Start müssen folgende Daten lokal vorhanden sein:
 
@@ -95,26 +96,47 @@ Vor dem Start müssen folgende Daten lokal vorhanden sein:
 ImagesAll2/                 Bilddatensatz
 Segmentation/               JSON- und Segmentkarten-Dateien
 neo4j/dump/                 Neo4j-Dump-Datei
+````
+
+Die Bilder müssen im Ordner `ImagesAll2` in den jeweiligen Webcam-Unterordnern abgelegt sein. Die Struktur muss dabei der Struktur entsprechen, die auch in den erzeugten JSON-Dateien referenziert wird, zum Beispiel:
+
+```text
+ImagesAll2/
+└── 1484/
+    └── img164.jpg
+```
+
+Die Segmentierungsdaten müssen im Ordner `Segmentation` liegen. Die JSON-Dateien und Segmentkarten werden dabei in den entsprechenden Unterordnern erwartet, zum Beispiel:
+
+```text
+Segmentation/
+└── output_sam3_correction/
+   └── segmaps/
+        └── 1484_img164_segmap.npz
+└── output_segmentation/
+    ├── json/
+       └── 1484_img164.json   
+```
+
+Ein Beispielpfad für eine JSON-Datei ist:
+
+```text
+Server/Segmentation/output_segmentation/json/1484_img164.json
+```
+
+Der Bilddatensatz, die erzeugten Segmentierungsdateien und das Neo4j-Dump-File sind aufgrund ihrer Grösse nicht vollständig im Repository enthalten und müssen manuell in die entsprechenden Ordner kopiert werden. Das Neo4j-Dump-File muss im Ordner `neo4j/dump/` abgelegt werden.
+
+Anschliessend kann die Anwendung im Ordner `Server` mit folgendem Befehl gestartet werden:
 
 ```bash
 docker compose up -d --build
 ```
 
-Das Frontend befindet sich unter:
+Docker baut dabei die benötigten Container und startet die gesamte Anwendung. Das Frontend ist danach über den im Docker-Setup definierten Port erreichbar.
 
-```text
-Webapp/Frontend
+```
 ```
 
-Die zentrale Anwendungslogik ist in `GameMap.tsx` umgesetzt. Weitere wichtige Dateien sind `SegmentOverlay.tsx`, `InfoTypes.ts` und das zugehörige CSS-File.
-
-Das Backend befindet sich unter:
-
-```text
-Webapp/Backend
-```
-
-Die Datei `main.py` stellt die Schnittstelle zwischen Frontend und Neo4j-Datenbank bereit.
 
 ## Hinweise
 
