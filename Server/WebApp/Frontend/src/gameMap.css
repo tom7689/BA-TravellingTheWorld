@@ -1,0 +1,285 @@
+html {
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+}
+
+.fts-map-page {
+  min-height: 100vh;
+  width: 100%;
+  padding: 24px 24px 40px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #000000;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fts-map-shell {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Page title and explanation text */
+.fts-page-header {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto 22px;
+  text-align: center;
+}
+
+.fts-page-header h1 {
+  margin: 0 0 10px;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+
+.fts-page-header p {
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+/* Main two-column layout: image on the left, world map on the right */
+.fts-map-game-panel {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 500px;
+  gap: 24px;
+  align-items: start;
+}
+
+.fts-map-left-panel {
+  position: relative;
+  z-index: 5;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Fixed image area */
+.fts-map-image-wrap {
+  width: min(100%, 900px);
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
+.fts-map-image-stage {
+  position: relative;
+  display: flex;
+  width: min(100%, 900px);
+  height: 600px;
+  line-height: 0;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  overflow: visible;
+}
+
+/* Wrapper with the same size as the displayed image. The blackout layer is placed here. */
+.fts-image-actual-frame {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+  line-height: 0;
+  overflow: visible;
+}
+
+.fts-segment-overlay-root {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  line-height: 0;
+  overflow: visible;
+  background: #ffffff;
+  cursor: default;
+}
+
+.fts-segment-base-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 600px;
+  object-fit: initial;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Black transition layer shown while switching from one image to the next */
+.fts-image-switch-blackout {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: #000000;
+}
+
+/* Canvas used to hide the full image except for the selected/matched segment */
+.fts-segment-focus-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  transition-property: opacity;
+  transition-timing-function: ease;
+  transition-duration: 900ms;
+}
+
+.fts-segment-hover-label {
+  position: absolute;
+  z-index: 9999;
+  pointer-events: none;
+  padding: 5px 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.fts-segment-loading-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 30;
+  padding: 5px 8px;
+  background: #000000;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+/* World map */
+.fts-map-right-panel {
+  position: sticky;
+  top: 24px;
+  width: 500px;
+  min-width: 500px;
+  margin-top: 100px;
+  z-index: 1;
+}
+
+.fts-map-frame {
+  width: 500px;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid #000000;
+  background: #a9d8e6;
+}
+
+.fts-leaflet-map,
+.fts-leaflet-map.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fts-leaflet-map .leaflet-control-zoom {
+  border: none;
+  box-shadow: none;
+}
+
+.fts-leaflet-map .leaflet-control-zoom a {
+  width: 24px;
+  height: 24px;
+  line-height: 22px;
+  font-size: 16px;
+  color: #000000;
+  background: #eeeeee;
+  border-radius: 0;
+}
+
+.fts-leaflet-map .leaflet-control-attribution {
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.fts-map-frame,
+.fts-leaflet-map,
+.fts-leaflet-map.leaflet-container,
+.fts-leaflet-map .leaflet-container,
+.fts-leaflet-map .leaflet-pane,
+.fts-leaflet-map .leaflet-map-pane {
+  background: #a9d8e6 !important;
+}
+
+.fts-current-leaflet-pin {
+  filter: brightness(0.55) saturate(1.4);
+}
+
+.fts-old-leaflet-pin {
+  filter: brightness(1.25) saturate(0.45) opacity(0.65);
+}
+
+@media (max-width: 1150px) {
+  .fts-map-game-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .fts-map-right-panel {
+    position: static;
+    width: min(100%, 500px);
+    min-width: 0;
+    margin: 18px auto 0;
+  }
+
+  .fts-map-frame {
+    width: 100%;
+    height: 400px;
+  }
+
+  .fts-map-image-wrap,
+  .fts-map-image-stage {
+    width: min(100%, 900px);
+  }
+}
+
+@media (max-width: 700px) {
+  .fts-map-page {
+    padding: 16px 10px 30px;
+  }
+
+  .fts-page-header {
+    margin-bottom: 16px;
+  }
+
+  .fts-page-header p {
+    font-size: 14px;
+  }
+
+  .fts-map-image-stage {
+    height: 62vh;
+  }
+
+  .fts-segment-base-image {
+    max-height: 62vh;
+  }
+
+  .fts-map-frame {
+    height: 300px;
+  }
+
+  .fts-segment-hover-label {
+    font-size: 12px;
+  }
+}
