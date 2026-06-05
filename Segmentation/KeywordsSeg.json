@@ -1,0 +1,43 @@
+{
+  "COLOR_LABELS": [
+    "blue",
+    "green",
+    "gray",
+    "white",
+    "black",
+    "brown",
+    "red",
+    "yellow",
+    "orange",
+    "beige",
+    "pink"
+  ],
+  "MATERIAL_LABELS": [
+    "wood",
+    "stone",
+    "metal",
+    "glass",
+    "concrete",
+    "rocky",
+    "dirty",
+    "wet",
+    "reflective",
+    "smooth",
+    "rough"
+  ],
+  "ATTRIBUTE_LABELS": [
+    "bright",
+    "dark",
+    "cloudy",
+    "calm",
+    "shiny",
+    "textured",
+    "natural",
+    "urban",
+    "large",
+    "flat",
+    "steep",
+    "wet",
+    "dry"
+  ]
+}
