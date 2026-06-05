@@ -6,8 +6,8 @@ from tqdm import tqdm
 # -------------------------------------------------
 # CONFIG
 # -------------------------------------------------
-IMAGES_DIR = Path(r"Evaluation\Analyse\InOut\outdoor").resolve()
-OUT_FILE = Path(r"Evaluation\Analyse\InOut\outdoor\scenes\scenes.json").resolve()
+IMAGES_DIR = Path(r"ImagesAll2").resolve()
+OUT_FILE = Path(r"Scenes\scenes.json").resolve()
 
 EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 
