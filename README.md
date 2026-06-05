@@ -81,21 +81,20 @@ Nach dem Import muss aus Neo4j ein `.dump`-File erstellt werden. Dieses Dump-Fil
 
 ### 5. Server
 
-Der Ordner `Server` enthält die Webanwendung. Diese besteht aus:
+Der Ordner `Server` enthält die lauffähige Webanwendung. Die Anwendung ist als Docker-Setup aufgebaut und besteht aus mehreren Containern:
 
 * React/TypeScript-Frontend
 * FastAPI-Backend
 * Neo4j-Datenbank
 
-Vor dem Start müssen folgende Daten vorhanden sein:
+Dadurch muss die Anwendung nicht manuell eingerichtet werden. Wenn alle benötigten Daten vorhanden sind, können Frontend, Backend und Datenbank gemeinsam über Docker gestartet werden.
+
+Vor dem Start müssen folgende Daten lokal vorhanden sein:
 
 ```text
 ImagesAll2/                 Bilddatensatz
 Segmentation/               JSON- und Segmentkarten-Dateien
 neo4j/dump/                 Neo4j-Dump-Datei
-```
-
-Die Anwendung kann anschliessend mit Docker gestartet werden:
 
 ```bash
 docker compose up -d --build
