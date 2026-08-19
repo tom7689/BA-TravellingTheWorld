@@ -134,13 +134,6 @@ docker compose up -d --build
 
 Docker baut dabei die benötigten Container und startet die gesamte Anwendung. Das Frontend ist danach über den im Docker-Setup definierten Port erreichbar.
 
-```
-```
-
-
 ## Hinweise
 
 Der vollständige Bilddatensatz sowie grosse erzeugte Dateien sind nicht im GitHub-Repository enthalten. Sie müssen lokal in die entsprechenden Ordner kopiert werden, bevor die Anwendung gestartet werden kann.
-
-```
-```
